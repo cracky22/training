@@ -118,7 +118,7 @@
 <script>
     let state = {
         startDate: null,
-        completed: [], // Liste von IDs "w1-d2"
+        completed: [],
         weeks: []
     };
 
@@ -220,21 +220,19 @@
         const currentWeek = state.weeks.find(wk => wk.week === w);
         const workoutData = currentWeek.workouts[d];
 
-        // Berechne Ziel-Position
         let totalDays = (w - 1) * 7 + d + dir;
         if (totalDays < 1) return;
 
         let newW = Math.ceil(totalDays / 7);
         let newD = totalDays % 7 || 7;
 
-        // Verschiebe im Daten-Objekt
         delete currentWeek.workouts[d];
         const targetWeek = state.weeks.find(wk => wk.week === newW);
         if (targetWeek) {
             targetWeek.workouts[newD] = workoutData;
             activeW = {w: newW, d: newD};
             save();
-            openWorkout(newW, newD); // UI im Modal aktualisieren
+            openWorkout(newW, newD);
         }
     }
 
