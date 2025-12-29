@@ -6,16 +6,16 @@
       "workouts": {
         "2": {
           "type": "HIIT (Intensiv)",
-          "desc": "4 x 3 Min. @ 240W / 2 Min. @ 100W",
+          "desc": "4 x 3 Min. @ 235W / 2 Min. @ 100W",
           "steps": [
             {"type": "warmup", "name": "Warm-up", "dur": 10, "watt": 70},
-            {"type": "work", "name": "1. Intervall", "dur": 3, "watt": 240},
+            {"type": "work", "name": "1. Intervall", "dur": 3, "watt": 235},
             {"type": "rest", "name": "1. Pause", "dur": 2, "watt": 100},
-            {"type": "work", "name": "2. Intervall", "dur": 3, "watt": 240},
+            {"type": "work", "name": "2. Intervall", "dur": 3, "watt": 235},
             {"type": "rest", "name": "2. Pause", "dur": 2, "watt": 100},
-            {"type": "work", "name": "3. Intervall", "dur": 3, "watt": 240},
+            {"type": "work", "name": "3. Intervall", "dur": 3, "watt": 235},
             {"type": "rest", "name": "3. Pause", "dur": 2, "watt": 100},
-            {"type": "work", "name": "4. Intervall", "dur": 3, "watt": 240},
+            {"type": "work", "name": "4. Intervall", "dur": 3, "watt": 235},
             {"type": "rest", "name": "4. Pause", "dur": 2, "watt": 100},
             {"type": "cool", "name": "Cool-down", "dur": 10, "watt": 50}
           ]
