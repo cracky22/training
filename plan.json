@@ -1,0 +1,150 @@
+{
+  "weeks": [
+    {
+      "week": 1,
+      "focus": "Einstieg",
+      "workouts": {
+        "2": {
+          "type": "HIIT (Intensiv)",
+          "desc": "4 x 3 Min. @ 240W / 2 Min. @ 100W",
+          "steps": [
+            {"type": "warmup", "name": "Warm-up", "dur": 10, "watt": 70},
+            {"type": "work", "name": "1. Intervall", "dur": 3, "watt": 240},
+            {"type": "rest", "name": "1. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "2. Intervall", "dur": 3, "watt": 240},
+            {"type": "rest", "name": "2. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "3. Intervall", "dur": 3, "watt": 240},
+            {"type": "rest", "name": "3. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "4. Intervall", "dur": 3, "watt": 240},
+            {"type": "rest", "name": "4. Pause", "dur": 2, "watt": 100},
+            {"type": "cool", "name": "Cool-down", "dur": 10, "watt": 50}
+          ]
+        },
+        "4": {
+          "type": "Zone 2",
+          "desc": "60 Min. @ 95W (Kapillarisierung)",
+          "steps": [
+            {"type": "work", "name": "Grundlage", "dur": 60, "watt": 95}
+          ]
+        },
+        "7": {
+          "type": "Lange Fahrt",
+          "desc": "90 Min. @ 90W (Grundlage)",
+          "steps": [
+            {"type": "work", "name": "Lange Ausdauer", "dur": 90, "watt": 90}
+          ]
+        }
+      }
+    },
+    {
+      "week": 2,
+      "focus": "Belastung",
+      "workouts": {
+        "2": {
+          "type": "HIIT (Intensiv)",
+          "desc": "5 x 3 Min. @ 245W / 2 Min. @ 100W",
+          "steps": [
+            {"type": "warmup", "name": "Warm-up", "dur": 10, "watt": 70},
+            {"type": "work", "name": "1. Intervall", "dur": 3, "watt": 245},
+            {"type": "rest", "name": "1. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "2. Intervall", "dur": 3, "watt": 245},
+            {"type": "rest", "name": "2. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "3. Intervall", "dur": 3, "watt": 245},
+            {"type": "rest", "name": "3. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "4. Intervall", "dur": 3, "watt": 245},
+            {"type": "rest", "name": "4. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "5. Intervall", "dur": 3, "watt": 245},
+            {"type": "rest", "name": "5. Pause", "dur": 2, "watt": 100},
+            {"type": "cool", "name": "Cool-down", "dur": 10, "watt": 50}
+          ]
+        },
+        "4": {
+          "type": "Zone 2",
+          "desc": "75 Min. @ 95W (Kapillarisierung)",
+          "steps": [
+            {"type": "work", "name": "Grundlage", "dur": 75, "watt": 95}
+          ]
+        },
+        "7": {
+          "type": "Lange Fahrt",
+          "desc": "105 Min. @ 95W (Grundlage)",
+          "steps": [
+            {"type": "work", "name": "Lange Ausdauer", "dur": 105, "watt": 95}
+          ]
+        }
+      }
+    },
+    {
+      "week": 3,
+      "focus": "Peak",
+      "workouts": {
+        "2": {
+          "type": "HIIT (Intensiv)",
+          "desc": "5 x 3 Min. @ 250W / 2 Min. @ 100W",
+          "steps": [
+            {"type": "warmup", "name": "Warm-up", "dur": 10, "watt": 70},
+            {"type": "work", "name": "1. Intervall", "dur": 3, "watt": 250},
+            {"type": "rest", "name": "1. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "2. Intervall", "dur": 3, "watt": 250},
+            {"type": "rest", "name": "2. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "3. Intervall", "dur": 3, "watt": 250},
+            {"type": "rest", "name": "3. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "4. Intervall", "dur": 3, "watt": 250},
+            {"type": "rest", "name": "4. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "5. Intervall", "dur": 3, "watt": 250},
+            {"type": "rest", "name": "5. Pause", "dur": 2, "watt": 100},
+            {"type": "cool", "name": "Cool-down", "dur": 10, "watt": 50}
+          ]
+        },
+        "4": {
+          "type": "Zone 2",
+          "desc": "75 Min. @ 95W (Kapillarisierung)",
+          "steps": [
+            {"type": "work", "name": "Grundlage", "dur": 75, "watt": 95}
+          ]
+        },
+        "7": {
+          "type": "Lange Fahrt",
+          "desc": "120 Min. @ 95W (Grundlage)",
+          "steps": [
+            {"type": "work", "name": "Lange Ausdauer", "dur": 120, "watt": 95}
+          ]
+        }
+      }
+    },
+    {
+      "week": 4,
+      "focus": "Erholung",
+      "workouts": {
+        "2": {
+          "type": "HIIT (Technik)",
+          "desc": "3 x 3 Min. @ 230W / 2 Min. @ 100W",
+          "steps": [
+            {"type": "warmup", "name": "Warm-up", "dur": 10, "watt": 70},
+            {"type": "work", "name": "1. Intervall", "dur": 3, "watt": 230},
+            {"type": "rest", "name": "1. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "2. Intervall", "dur": 3, "watt": 230},
+            {"type": "rest", "name": "2. Pause", "dur": 2, "watt": 100},
+            {"type": "work", "name": "3. Intervall", "dur": 3, "watt": 230},
+            {"type": "rest", "name": "3. Pause", "dur": 2, "watt": 100},
+            {"type": "cool", "name": "Cool-down", "dur": 10, "watt": 50}
+          ]
+        },
+        "4": {
+          "type": "Zone 2",
+          "desc": "45 Min. @ 90W (Locker)",
+          "steps": [
+            {"type": "work", "name": "Erholung", "dur": 45, "watt": 90}
+          ]
+        },
+        "7": {
+          "type": "Lange Fahrt",
+          "desc": "60 Min. @ 90W (Locker)",
+          "steps": [
+            {"type": "work", "name": "Abschluss", "dur": 60, "watt": 90}
+          ]
+        }
+      }
+    }
+  ]
+}
