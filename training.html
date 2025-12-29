@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Cycle Tracker v3</title>
+    <title>Pro Cycle v5</title>
     <style>
         :root {
             --bg-color: #000000;
@@ -18,262 +18,239 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: var(--font-family);
-            margin: 0;
-            padding: 20px 20px 80px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            background-color: var(--bg-color); color: var(--text-primary);
+            font-family: var(--font-family); margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
             -webkit-font-smoothing: antialiased;
         }
 
         .container { width: 100%; max-width: 450px; }
 
-        h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin: 0 0 5px 0; }
+        h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin: 0; }
         .subtitle { color: var(--text-secondary); font-size: 14px; margin-bottom: 30px; }
 
         .btn {
             background-color: white; color: black; border: none;
-            padding: 16px; border-radius: 12px;
-            font-size: 16px; font-weight: 600; cursor: pointer;
-            width: 100%; text-align: center; margin-top: 10px;
+            padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 600; 
+            cursor: pointer; width: 100%; text-align: center; margin-top: 10px;
         }
         .btn-outline { background: transparent; border: 1px solid #333; color: var(--text-secondary); }
         .btn-detail { background: #333; color: white; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;}
         .btn-success { background: var(--rest); color: white; }
 
         .week-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-left: 4px solid #333;
-            transition: opacity 0.3s;
+            background-color: var(--card-bg); border-radius: 16px;
+            padding: 20px; margin-bottom: 15px; border-left: 4px solid #333;
         }
-        .week-card.active { border-left-color: var(--accent); background: #1c1c1c; }
+        .week-card.active { border-left-color: var(--accent); }
         
         .week-header { display: flex; justify-content: space-between; margin-bottom: 15px; }
         .week-title { font-size: 17px; font-weight: 700; }
-        .week-focus { font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+        .week-focus { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; }
 
         .day-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
         .day-node {
-            aspect-ratio: 1;
-            background: #2c2c2e;
-            border-radius: 6px;
+            aspect-ratio: 1; background: #2c2c2e; border-radius: 6px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 12px; color: var(--text-secondary);
-            position: relative; cursor: pointer;
+            font-size: 12px; color: var(--text-secondary); position: relative; cursor: pointer;
         }
         .day-node.has-training { background: #3a3a3c; color: white; font-weight: 700; border: 1px solid #444; }
-        .day-node.completed { background: var(--rest); color: black; border: none; }
-        .day-node.today { border: 2px solid white; box-shadow: 0 0 15px rgba(255,255,255,0.15); z-index: 2; }
+        .day-node.completed { background: var(--rest) !important; color: black !important; border: none; }
+        .day-node.today { border: 2px solid white; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
 
-        /* Modal Area */
         #modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
             display: none; align-items: flex-end; z-index: 100;
         }
         .modal-content {
-            background: var(--modal-bg);
-            width: 100%; max-width: 450px;
-            border-radius: 24px 24px 0 0;
-            padding: 30px 24px;
-            box-sizing: border-box;
-            max-height: 90vh;
-            overflow-y: auto;
-            margin: 0 auto;
-            position: relative;
+            background: var(--modal-bg); width: 100%; max-width: 450px;
+            border-radius: 24px 24px 0 0; padding: 30px 24px;
+            box-sizing: border-box; max-height: 90vh; overflow-y: auto; margin: 0 auto;
         }
 
-        #workout-steps-container { display: none; margin-bottom: 20px; background: #111; border-radius: 12px; padding: 5px; }
-        .step-row { display: grid; grid-template-columns: 2fr 1fr 1.5fr; padding: 12px 10px; border-bottom: 1px solid #222; font-size: 13px; align-items: center; }
-        .step-row.header { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
-        .step-watt { font-weight: 700; color: white; text-align: right; }
-        
+        #steps-container { display: none; background: #111; border-radius: 12px; padding: 5px; margin-bottom: 20px; }
+        .step-row { display: grid; grid-template-columns: 2fr 1fr 1fr; padding: 12px 10px; border-bottom: 1px solid #222; font-size: 13px; }
         .indicator { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
-        .ind-warmup { background: var(--warmup); }
-        .ind-work { background: var(--accent); }
-        .ind-rest { background: var(--rest); }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>Cycle Performance</h1>
-        <div class="subtitle">
-            <span id="display-date">Lädt...</span> • Tag <span id="day-counter">0</span>
-        </div>
+        <h1 id="plan-name">Cycle Tracker</h1>
+        <div class="subtitle">Tag <span id="day-counter">1</span> • <span id="current-date">Datum</span></div>
     </header>
 
     <div id="weeks-container"></div>
 
-    <div style="margin-top:40px; text-align:center;">
-        <button class="btn btn-outline" style="width:auto; font-size:12px;" onclick="resetProgram()">Plan zurücksetzen</button>
-    </div>
+    <button class="btn btn-outline" style="margin-top:20px;" onclick="resetProgram()">Programm zurücksetzen</button>
 </div>
 
-<div id="modal" onclick="handleBackdropClick(event)">
+<div id="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div style="width: 40px; height: 5px; background: #444; border-radius: 3px; margin: 0 auto 25px auto;"></div>
-        
-        <div id="modal-subtitle" style="color: var(--accent); font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;"></div>
-        <h2 id="modal-title" style="font-size: 24px; margin-bottom: 20px;"></h2>
-        <p id="modal-desc" style="color: #ccc; margin-bottom: 25px; font-size: 15px;"></p>
+        <div id="m-subtitle" style="color: var(--accent); font-size: 12px; font-weight: 700; text-transform: uppercase;"></div>
+        <h2 id="m-title" style="font-size: 24px; margin-bottom: 20px;"></h2>
+        <p id="m-desc" style="color: #ccc; margin-bottom: 25px;"></p>
 
-        <button class="btn btn-detail" id="detail-toggle-btn" onclick="toggleDetails()">
+        <button class="btn btn-detail" onclick="toggleDetails()">
             <span>Workout Details</span>
             <span id="chevron">▼</span>
         </button>
 
-        <div id="workout-steps-container">
-            <div class="step-row header"><div>Phase</div><div>Dauer</div><div style="text-align:right">Ziel</div></div>
+        <div id="steps-container">
             <div id="steps-list"></div>
         </div>
 
-        <div style="background:#252525; padding:12px; border-radius:10px; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:12px; color:#aaa;">Verschieben</span>
-            <div style="display:flex; gap:5px;">
-                <button class="btn btn-outline" style="width:auto; margin:0; padding:8px 12px;" onclick="shiftPlan(-1)">-1 Tag</button>
-                <button class="btn btn-outline" style="width:auto; margin:0; padding:8px 12px;" onclick="shiftPlan(1)">+1 Tag</button>
+        <div style="background:#252525; padding:15px; border-radius:12px; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-size:12px; color:#aaa;">Training verschieben<br><small>(+1 Tag = später trainieren)</small></div>
+            <div style="display:flex; gap:8px;">
+                <button class="btn btn-outline" style="width:auto; margin:0; padding:8px 15px;" onclick="moveWorkout(-1)">-1</button>
+                <button class="btn btn-outline" style="width:auto; margin:0; padding:8px 15px;" onclick="moveWorkout(1)">+1</button>
             </div>
         </div>
 
-        <button class="btn btn-success" onclick="markDone()">Training abschließen</button>
+        <button class="btn btn-success" onclick="markDone()">Als abgeschlossen markieren</button>
     </div>
 </div>
 
 <script>
-    let appData = {
+    let state = {
         startDate: null,
-        completed: {},
-        plan: [] 
+        completed: [], // Liste von IDs "w1-d2"
+        weeks: []
     };
-    let selectedWorkout = null;
 
     async function init() {
-        const stored = localStorage.getItem('proCycle_v3');
+        const stored = localStorage.getItem('proCycle_v5');
         const urlParams = new URLSearchParams(window.location.search);
         const planFile = urlParams.get('plan');
 
         if (stored) {
-            appData = JSON.parse(stored);
-        }
-
-        // Wenn Plan in URL angegeben UND noch kein Plan im Speicher ODER neuer Plan erzwungen
-        if (planFile && (!appData.plan || appData.plan.length === 0)) {
+            state = JSON.parse(stored);
+        } else if (planFile) {
             try {
-                const response = await fetch(planFile);
-                const json = await response.json();
-                appData.plan = json.weeks;
-                if (!appData.startDate) {
-                    const now = new Date(); now.setHours(0,0,0,0);
-                    appData.startDate = now.toISOString();
-                }
-                saveState();
-            } catch (e) {
-                console.error("JSON Load Error", e);
-            }
+                const res = await fetch(planFile);
+                const data = await res.json();
+                state.weeks = data.weeks;
+                state.startDate = new Date().toISOString();
+                save();
+            } catch(e) { alert("Plan konnte nicht geladen werden."); }
         }
-
-        renderDashboard();
+        render();
     }
 
-    function saveState() {
-        localStorage.setItem('proCycle_v3', JSON.stringify(appData));
-        renderDashboard();
+    function save() {
+        localStorage.setItem('proCycle_v5', JSON.stringify(state));
+        render();
     }
 
-    function getDayDiff() {
-        const start = new Date(appData.startDate);
-        const now = new Date(); now.setHours(0,0,0,0); start.setHours(0,0,0,0);
-        return Math.floor((now - start) / (1000 * 60 * 60 * 24)) + 1;
+    function getTodayIndex() {
+        const start = new Date(state.startDate);
+        start.setHours(0,0,0,0);
+        const now = new Date();
+        now.setHours(0,0,0,0);
+        return Math.floor((now - start) / (86400000)) + 1;
     }
 
-    function renderDashboard() {
-        if (!appData.plan) return;
-        const currentDay = getDayDiff();
-        const currentWeekIdx = Math.floor((currentDay - 1) / 7);
-
-        document.getElementById('display-date').innerText = new Date(appData.startDate).toLocaleDateString('de-DE');
-        document.getElementById('day-counter').innerText = currentDay;
+    function render() {
+        if (!state.weeks.length) return;
+        const todayIdx = getTodayIndex();
+        document.getElementById('day-counter').innerText = todayIdx;
+        document.getElementById('current-date').innerText = new Date().toLocaleDateString('de-DE', {weekday: 'long', day: '2-digit', month: 'long'});
 
         const container = document.getElementById('weeks-container');
         container.innerHTML = '';
 
-        appData.plan.forEach((week, idx) => {
-            let html = `
-            <div class="week-card ${idx === currentWeekIdx ? 'active' : ''}">
+        state.weeks.forEach(week => {
+            const isWeekActive = todayIdx >= (week.week-1)*7+1 && todayIdx <= week.week*7;
+            let html = `<div class="week-card ${isWeekActive?'active':''}">
                 <div class="week-header"><div class="week-title">Woche ${week.week}</div><div class="week-focus">${week.focus}</div></div>
                 <div class="day-grid">`;
-            
+
             for (let d = 1; d <= 7; d++) {
-                const hasWorkout = week.workouts[d];
-                const dayId = `w${week.week}d${d}`;
-                const isToday = ((week.week - 1) * 7) + d === currentDay;
-                const done = appData.completed[dayId];
+                const currentId = `w${week.week}-d${d}`;
+                const workout = week.workouts[d];
+                const dayNum = (week.week - 1) * 7 + d;
+                const done = state.completed.includes(currentId);
+                const isToday = dayNum === todayIdx;
+
+                const label = d==2?'Di':d==4?'Do':d==7?'So':d;
                 
-                html += `<div class="day-node ${hasWorkout ? 'has-training' : ''} ${done ? 'completed' : ''} ${isToday ? 'today' : ''}" 
-                         ${hasWorkout ? `onclick="openWorkout(${week.week}, ${d})"` : ''}>
-                         ${done ? '✓' : (d==2?'Di':d==4?'Do':d==7?'So':d)}</div>`;
+                html += `<div class="day-node ${workout?'has-training':''} ${done?'completed':''} ${isToday?'today':''}" 
+                         onclick="${workout ? `openWorkout(${week.week}, ${d})` : ''}">
+                         ${done ? '✓' : label}</div>`;
             }
             container.innerHTML += html + `</div></div>`;
         });
     }
 
-    function openWorkout(wNum, dNum) {
-        const week = appData.plan.find(w => w.week === wNum);
-        const workout = week.workouts[dNum];
-        selectedWorkout = { id: `w${wNum}d${dNum}`, data: workout };
+    let activeW = null;
+    function openWorkout(w, d) {
+        activeW = {w, d};
+        const workout = state.weeks.find(wk => wk.week === w).workouts[d];
+        
+        document.getElementById('m-subtitle').innerText = workout.type;
+        document.getElementById('m-title').innerText = `Training Tag ${d}`;
+        document.getElementById('m-desc').innerHTML = workout.desc;
 
-        document.getElementById('modal-subtitle').innerText = workout.type;
-        document.getElementById('modal-title').innerText = `Woche ${wNum} • Tag ${dNum}`;
-        document.getElementById('modal-desc').innerHTML = workout.desc;
-
-        const stepsList = document.getElementById('steps-list');
-        stepsList.innerHTML = '';
+        const list = document.getElementById('steps-list');
+        list.innerHTML = '';
         if (workout.steps) {
-            document.getElementById('detail-toggle-btn').style.display = 'flex';
             workout.steps.forEach(s => {
-                const color = s.type==='work'?'ind-work':s.type==='rest'?'ind-rest':'ind-warmup';
-                stepsList.innerHTML += `<div class="step-row"><div><span class="indicator ${color}"></span>${s.name}</div><div>${s.dur}m</div><div class="step-watt">${s.watt}W</div></div>`;
+                const color = s.type==='work'?'#ff3b30':s.type==='rest'?'#30d158':'#0a84ff';
+                list.innerHTML += `<div class="step-row">
+                    <div><span class="indicator" style="background:${color}"></span>${s.name}</div>
+                    <div style="color:#888">${s.dur}m</div>
+                    <div style="text-align:right; font-weight:bold;">${s.watt}W</div>
+                </div>`;
             });
+            document.querySelector('.btn-detail').style.display = 'flex';
         } else {
-            document.getElementById('detail-toggle-btn').style.display = 'none';
+            document.querySelector('.btn-detail').style.display = 'none';
         }
 
-        document.getElementById('workout-steps-container').style.display = 'none';
+        document.getElementById('steps-container').style.display = 'none';
         document.getElementById('modal').style.display = 'flex';
     }
 
-    function handleBackdropClick(e) { if (e.target.id === 'modal') closeModal(); }
-    function closeModal() { document.getElementById('modal').style.display = 'none'; }
-    function toggleDetails() {
-        const c = document.getElementById('workout-steps-container');
-        c.style.display = c.style.display === 'none' ? 'block' : 'none';
+    function moveWorkout(dir) {
+        const {w, d} = activeW;
+        const currentWeek = state.weeks.find(wk => wk.week === w);
+        const workoutData = currentWeek.workouts[d];
+
+        // Berechne Ziel-Position
+        let totalDays = (w - 1) * 7 + d + dir;
+        if (totalDays < 1) return;
+
+        let newW = Math.ceil(totalDays / 7);
+        let newD = totalDays % 7 || 7;
+
+        // Verschiebe im Daten-Objekt
+        delete currentWeek.workouts[d];
+        const targetWeek = state.weeks.find(wk => wk.week === newW);
+        if (targetWeek) {
+            targetWeek.workouts[newD] = workoutData;
+            activeW = {w: newW, d: newD};
+            save();
+            openWorkout(newW, newD); // UI im Modal aktualisieren
+        }
     }
 
     function markDone() {
-        appData.completed[selectedWorkout.id] = true;
-        saveState();
+        const id = `w${activeW.w}-d${activeW.d}`;
+        if (!state.completed.includes(id)) state.completed.push(id);
+        save();
         closeModal();
     }
 
-    function shiftPlan(days) {
-        const d = new Date(appData.startDate);
-        d.setDate(d.getDate() + days);
-        appData.startDate = d.toISOString();
-        saveState();
-        // UI im Modal direkt anpassen falls offen
-        document.getElementById('day-counter').innerText = getDayDiff();
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+    function toggleDetails() {
+        const s = document.getElementById('steps-container');
+        s.style.display = s.style.display === 'none' ? 'block' : 'none';
     }
-
-    function resetProgram() { if(confirm("Wirklich zurücksetzen?")) { localStorage.clear(); location.reload(); } }
+    function resetProgram() { if(confirm("Löschen?")) { localStorage.clear(); location.reload(); } }
 
     init();
 </script>
